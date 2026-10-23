@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+
+const byDate = (a: { data: { date?: Date } }, b: { data: { date?: Date } }) =>
+	(b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0);
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(byDate);
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(byDate);
+
+const sections = [
+	{ id: 'articles', heading: 'Articles', base: 'articles', entries: articles },
+	{ id: 'projects', heading: 'Projects', base: 'projects', entries: projects },
+];
+---
+
+<Base>
+	<section class="intro">
+		<h1 class="rise" style="--i: 0">Hi, I'm Lukas.</h1>
+		<p class="lede rise" style="--i: 1">
+			I co-founded <a href={url('projects/datapods')}>Datapods</a> in 2022, where I work on data
+			markets and the <a href={url('articles/what-your-data-is-actually-worth')}>value of personal
+			data</a>. On the side, I build <a href="https://fletter.app">fletter.app</a>.
+		</p>
+		<p class="rise" style="--i: 2">
+			Before that, I studied economics at the LSE, valued infrastructure assets at FGS, wrote my
+			bachelor's thesis on a Russian gas storage facility in Rehden, and co-founded
+			<a href="https://www.s2s-bonn.de/">Science to Startup</a>.
+		</p>
+	</section>
+
+	{
+		sections.map(({ id, heading, base, entries }, s) => (
+			<section id={id} class="list">
+				<h2 class="rise" style={`--i: ${3 + s * 3}`}>{heading}</h2>
+				<ul>
+					{entries.map((entry, i) => (
+						<li class="rise" style={`--i: ${4 + s * 3 + i}`}>
+							<a href={url(`${base}/${entry.id}`)}>
+								<span class="title" transition:name={`title-${entry.id}`}>
+									{entry.data.title}
+								</span>
+								<span class="desc">{entry.data.description}</span>
+								<span class="arrow" aria-hidden="true">→</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</Base>

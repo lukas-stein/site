@@ -1,0 +1,29 @@
+---
+import Base from './Base.astro';
+import { url } from '../lib/url';
+
+interface Props {
+	id: string;
+	title: string;
+	description: string;
+	date?: Date;
+	tags: string[];
+}
+
+const { id, title, description, date, tags } = Astro.props;
+---
+
+<Base title={title} description={description}>
+	<div class="progress" aria-hidden="true"></div>
+	<article class="post">
+		<a class="back rise" style="--i: 0" href={url()}>← All writing</a>
+		<h1 class="rise" style="--i: 1" transition:name={`title-${id}`}>{title}</h1>
+		<p class="meta rise" style="--i: 2">
+			{date && <time datetime={date.toISOString()}>{date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}</time>}
+			{tags.map((t) => <span class="tag">{t}</span>)}
+		</p>
+		<div class="prose rise" style="--i: 3">
+			<slot />
+		</div>
+	</article>
+</Base>

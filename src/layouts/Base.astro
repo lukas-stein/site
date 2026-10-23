@@ -1,0 +1,44 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { url } from '../lib/url';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const site = 'Lukas Stein';
+const { title, description = 'Notes on data, economics and building startups.' } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+		<title>{title ? `${title} · ${site}` : site}</title>
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title ?? site} />
+		<meta property="og:description" content={description} />
+		<link rel="canonical" href={new URL(path, Astro.site)} />
+		<ClientRouter />
+	</head>
+	<body>
+		<header class="site-header">
+			<a class="wordmark" href={url()}>{site}</a>
+			<nav>
+				<a href={url('#articles')}>Articles</a>
+				<a href={url('#projects')}>Projects</a>
+			</nav>
+		</header>
+		<main>
+			<slot />
+		</main>
+		<footer class="site-footer">
+			<a href="https://github.com/lukas-stein">GitHub</a>
+			<a href="https://www.linkedin.com/in/lukas-p-stein/">LinkedIn</a>
+		</footer>
+	</body>
+</html>
