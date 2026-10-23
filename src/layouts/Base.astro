@@ -23,6 +23,12 @@ const path = Astro.url.pathname;
 		<meta property="og:title" content={title ?? site} />
 		<meta property="og:description" content={description} />
 		<link rel="canonical" href={new URL(path, Astro.site)} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+		/>
 		<ClientRouter />
 	</head>
 	<body>

@@ -5,8 +5,9 @@
 	--line: #e6e1d8;
 	--accent: #2f6f4e;
 	--accent-soft: #2f6f4e1a;
-	--serif: ui-serif, Charter, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
-	--sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+	/* Libre Baskerville only downloads where Baskerville isn't installed. */
+	--serif: Baskerville, 'Baskerville Old Face', 'Libre Baskerville', Georgia, serif;
+	--sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	--ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 	color-scheme: light dark;
 }
@@ -31,7 +32,7 @@
 html {
 	background: var(--bg);
 	color: var(--ink);
-	font: 18px/1.65 var(--sans);
+	font: 19px/1.65 var(--serif);
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 	scroll-behavior: smooth;
@@ -53,16 +54,18 @@ main {
 h1,
 h2,
 h3 {
-	font-family: var(--serif);
-	font-weight: 600;
-	line-height: 1.2;
-	letter-spacing: -0.01em;
+	font-family: var(--sans);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.025em;
 	text-wrap: balance;
 }
 
 h1 {
-	font-size: clamp(2rem, 6vw, 2.8rem);
-	margin: 0 0 1rem;
+	font-size: clamp(2.6rem, 9vw, 4.5rem);
+	line-height: 1;
+	letter-spacing: -0.04em;
+	margin: 0 0 1.25rem;
 }
 
 p {
@@ -90,6 +93,7 @@ a:hover {
 	align-items: center;
 	gap: 1rem;
 	padding: 1.5rem 0;
+	font-family: var(--sans);
 	font-size: 0.9rem;
 }
 
@@ -104,9 +108,10 @@ a:hover {
 }
 
 .wordmark {
-	font-family: var(--serif);
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 1.05rem;
+	letter-spacing: -0.02em;
+	color: var(--ink);
 }
 
 nav,
@@ -157,16 +162,17 @@ nav,
 }
 
 .list .title {
-	font-family: var(--serif);
-	font-size: 1.25rem;
-	font-weight: 600;
-	line-height: 1.3;
+	font-family: var(--sans);
+	font-size: clamp(1.4rem, 4vw, 1.75rem);
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: -0.025em;
 	width: fit-content;
 }
 
 .list .desc {
 	color: var(--muted);
-	font-size: 0.95rem;
+	font-size: 1rem;
 }
 
 .list .arrow {
@@ -191,6 +197,7 @@ nav,
 
 .back {
 	display: inline-block;
+	font-family: var(--sans);
 	font-size: 0.9rem;
 	color: var(--muted);
 	background-size: 0 1px;
@@ -202,6 +209,7 @@ nav,
 	flex-wrap: wrap;
 	gap: 0.5rem;
 	color: var(--muted);
+	font-family: var(--sans);
 	font-size: 0.85rem;
 	margin: 0 0 2.5rem;
 }
@@ -214,17 +222,16 @@ nav,
 }
 
 .prose {
-	font-family: var(--serif);
-	font-size: 1.1rem;
+	font-size: 1.05rem;
 }
 
 .prose h2 {
-	font-size: 1.5rem;
-	margin: 2.5rem 0 0.75rem;
+	font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+	margin: 3rem 0 0.75rem;
 }
 
 .prose h3 {
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	margin: 2rem 0 0.5rem;
 }
 
